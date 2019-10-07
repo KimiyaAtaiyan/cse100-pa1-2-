@@ -1,3 +1,13 @@
+/*
+ * Author: Kimiya Ataiyan
+ * UserID: kataiyan
+ * Date: 10/7/19
+ * Filename: test_BST.cpp
+ * Description: contains test methods to test the implementation 
+ * 	         of the methods implemented in BST.hpp
+ */
+
+
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -58,4 +68,21 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST) {
     ASSERT_FALSE(bst.insert(3));
 }
 
-// TODO: add more BST tests here
+
+TEST_F(SmallBSTFixture, SMALL_INSERT_NORMAL_TEST){
+	//assert true for normal insertion( non duplicate)
+	ASSERT_TRUE(bst.insert(101));
+}
+
+/*TEST_F(SmallBSTFixture, SMALL_INSERT_SIZE_TEST){
+
+	//assert that BST has correct size after insertion
+	ASSERT_TRUE(bst.insert(4));
+	ASSERT_EQ(bst.size(), 6);
+}*/
+
+TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSAL_TEST){
+
+	vector<int> list{-33,1,3,4,100};
+	ASSERT_EQ(bst.inorder(), list);
+}
