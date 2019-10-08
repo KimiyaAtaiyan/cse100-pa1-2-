@@ -235,17 +235,19 @@ class BST {
 
     vector<Data> inorderHelper(BSTNode<Data>* node, vector<Data> list) const{
 
+
 	    if(node->left != 0){
 
-		    inorderHelper(node->left, list);
+		    list = inorderHelper(node->left, list);
 	    }
 
 	    list.push_back(node->data);
 	    
 	    if(node->right != 0){
 
-		    inorderHelper(node->right, list);
+		    list = inorderHelper(node->right, list);
 	    }
+
 
 	    return list;
     }

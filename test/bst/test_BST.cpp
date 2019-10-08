@@ -46,13 +46,19 @@ TEST(BSTTests, EMPTY_TREE_HEIGHT_TEST) {
  */
 class SmallBSTFixture : public ::testing::Test {
   protected:
+
     BST<int> bst;
+    BST<int> bst1;
 
   public:
+
     SmallBSTFixture() {
         // initialization code here
         vector<int> input{3, 4, 1, 100, -33};
         insertIntoBST(input, bst);
+
+	vector<int> input1{100,4,205,-2,5,6,300,200};
+	insertIntoBST(input1, bst1);
     }
     // code in SetUp() will execute just before the test ensues
     // void SetUp() {}
@@ -68,21 +74,24 @@ TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST) {
     ASSERT_FALSE(bst.insert(3));
 }
 
+TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATE2_TEST){
+	ASSERT_FALSE(bst.insert(-33));
+}
 
 TEST_F(SmallBSTFixture, SMALL_INSERT_NORMAL_TEST){
 	//assert true for normal insertion( non duplicate)
 	ASSERT_TRUE(bst.insert(101));
 }
 
-/*TEST_F(SmallBSTFixture, SMALL_INSERT_SIZE_TEST){
-
-	//assert that BST has correct size after insertion
-	ASSERT_TRUE(bst.insert(4));
-	ASSERT_EQ(bst.size(), 6);
-}*/
 
 TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSAL_TEST){
 
 	vector<int> list{-33,1,3,4,100};
 	ASSERT_EQ(bst.inorder(), list);
+}
+
+TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSAL_BIG_TEST){
+
+	vector<int>list{-2,4,5,6,100,200,205,300};
+	ASSERT_EQ(bst1.inorder(), list);
 }
