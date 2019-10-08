@@ -55,6 +55,7 @@ class SmallBSTFixture : public ::testing::Test {
     BST<int> bst1;
     BST<int> bst2;
     BST<int> bst3;
+    BST<int> bst4;
 
   public:
     SmallBSTFixture() {
@@ -67,6 +68,9 @@ class SmallBSTFixture : public ::testing::Test {
 
 	vector<int>input3{3,4,5,6,7,8};
 	insertIntoBST(input3, bst3);
+
+	vector<int>input4{};
+	insertIntoBST(input4, bst4);
 
     }
     // code in SetUp() will execute just before the test ensues
@@ -113,6 +117,12 @@ TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSE_UNBALANCED_TEST){
 
 	vector<int>list{3,4,5,6,7,8};
 	ASSERT_EQ(bst3.inorder(),list);
+}
+
+TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSE_EMPTY_TEST){
+
+	vector<int>list{};
+	ASSERT_EQ(bst4.inorder(), list);
 }
 
 /*TEST_F(SmallBSTFixture, FIND_NODE_TEST){
