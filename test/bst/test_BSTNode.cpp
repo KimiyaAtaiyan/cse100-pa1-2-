@@ -1,11 +1,9 @@
 /*
- * Author: Kimiya Ataiyan 
+ * Author: Kimiya Ataiyan
  * UserID: kataiyan
  * Date: 10/7/19
  * Source of help: none
  */
-
-
 
 #include <algorithm>
 #include <fstream>
@@ -21,11 +19,10 @@ using namespace std;
 using namespace testing;
 
 TEST(BST_NODE_TESTS, TEST_SUCCESSOR) {
-
     BSTNode<int>* node = new BSTNode<int>(3);
     ASSERT_EQ(node->successor(), nullptr);
 
-    BSTNode<int> * node1 = new BSTNode<int>(6);
+    BSTNode<int>* node1 = new BSTNode<int>(6);
     node1->parent = node;
     node->right = node1;
 
@@ -33,7 +30,7 @@ TEST(BST_NODE_TESTS, TEST_SUCCESSOR) {
     node2->parent = node;
     node->left = node2;
 
-    BSTNode<int> * node3 = new BSTNode<int>(4);
+    BSTNode<int>* node3 = new BSTNode<int>(4);
     node3->parent = node1;
     node1->left = node3;
 
@@ -41,7 +38,7 @@ TEST(BST_NODE_TESTS, TEST_SUCCESSOR) {
     node4->parent = node1;
     node1->right = node4;
 
-    BSTNode<int> * node5 = new BSTNode<int>(1);
+    BSTNode<int>* node5 = new BSTNode<int>(1);
     node5->parent = node2;
     node2->left = node5;
 
@@ -56,5 +53,4 @@ TEST(BST_NODE_TESTS, TEST_SUCCESSOR) {
     delete node3;
     delete node4;
     delete node5;
-
 }

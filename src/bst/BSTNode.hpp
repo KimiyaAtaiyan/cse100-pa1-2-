@@ -6,7 +6,6 @@
  * Source of help: tutors in lab, piazza
  */
 
-
 #ifndef BSTNODE_HPP
 #define BSTNODE_HPP
 #include <iomanip>
@@ -23,61 +22,53 @@ class BSTNode {
     Data const data;  // the const Data in this node.
 
     BSTNode(const Data& d) : data(d) {
-    
-    	left = 0;
-	right = 0;
-	parent =0;
-    
+        left = 0;
+        right = 0;
+        parent = 0;
     }
 
     /*
      * Function name: successor
      * Function Prototype: BSTNode<Data> * successor()
-     * Description: find the successor of the node its called on, meaning the smallest element
-     * 			that is larger than this node
-     * Return: BSTNode<Data> is the successor, or nullptr if no successor
+     * Description: find the successor of the node its called on, meaning the
+     * smallest element that is larger than this node Return: BSTNode<Data> is
+     * the successor, or nullptr if no successor
      */
-    BSTNode<Data>* successor() { 
-    
-    	//if node has right subtree, find least value of node from that right subtree
-	
+    BSTNode<Data>* successor() {
+        // if node has right subtree, find least value of node from that right
+        // subtree
 
-	    if(this == nullptr){
-		    return nullptr;
-	    }
-	    if( right != 0){
+        if (this == nullptr) {
+            return nullptr;
+        }
+        if (right != 0) {
+            BSTNode<Data>* temp = right;
 
-		    BSTNode<Data> * temp = right;
+            // move until most left node of right tree
+            while (temp->left != 0) {
+                temp = temp->left;
+            }
 
-		    //move until most left node of right tree
-		    while(temp->left != 0){
-			    temp = temp->left;
-		    }
+            if (temp->data == data) {
+                return nullptr;
+            } else {
+                return temp;
+            }
+        } else {  // if node has no right tree, iterate backwards
 
-		    if(temp->data == data){
-			    return nullptr;
-		    }
-		    else{
-			    return temp;
-		    }
-	    }
-	    else{ 		//if node has no right tree, iterate backwards
+            BSTNode<Data>* temp = this;
 
-		    BSTNode<Data> * temp = this;
+            while (temp->parent != 0) {
+                temp = temp->parent;
 
-		    while( temp->parent != 0){
+                if (data < temp->data) {
+                    return temp;
+                }
+            }
 
-			    temp = temp->parent;
-
-			    if(data < temp->data){
-				    return temp;
-			    }
-		    }
-
-		    return nullptr;
-	    }
+            return nullptr;
+        }
     }
-    
 };
 
 /** DO NOT CHANGE THIS METHOD

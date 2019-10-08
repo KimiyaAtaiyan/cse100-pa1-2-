@@ -1,11 +1,10 @@
 /*
- * Author: Kimiya Ataiyan 
- * UserID: kataiyan 
+ * Author: Kimiya Ataiyan
+ * UserID: kataiyan
  * Date: 4/10/10
  * Filename: BSTIterator.hpp
  * Source of help: none
  */
-
 
 #ifndef BSTITERATOR_HPP
 #define BSTITERATOR_HPP
@@ -41,14 +40,12 @@ class BSTIterator : public iterator<input_iterator_tag, Data> {
         return before;
     }
 
-    bool operator==(BSTIterator<Data> const& other) const { 
-    
-    	return curr == other.curr;
+    bool operator==(BSTIterator<Data> const& other) const {
+        return curr == other.curr;
     }
 
-    bool operator!=(BSTIterator<Data> const& other) const { 
-    
-    	return curr != other.curr;
+    bool operator!=(BSTIterator<Data> const& other) const {
+        return curr != other.curr;
     }
 };
 
