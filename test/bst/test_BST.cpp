@@ -125,13 +125,17 @@ TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSE_EMPTY_TEST){
 	ASSERT_EQ(bst4.inorder(), list);
 }
 
-/*TEST_F(SmallBSTFixture, FIND_NODE_TEST){
+TEST_F(SmallBSTFixture, FIND_NODE_TEST){
+
+	BSTNode<int>node(-33);	
+        ASSERT_EQ(*(bst.find(node.data)) ,-33);
 
 
-        BSTIterator<int> iter(&);
+}
 
-        ASSERT_EQ(bst.find(node.data) ,iter);
+/*TEST_F(SmallBSTFixture, FIND_NODE_NULL_TEST){
 
-
+	BSTIterator<int> iter1 = bst.find(1234);
+	ASSERT_TRUE( *(iter1) == 0);
 }*/
 

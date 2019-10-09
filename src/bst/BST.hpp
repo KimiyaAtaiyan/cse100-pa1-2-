@@ -109,14 +109,15 @@ class BST {
         BSTNode<Data>* temp = root;
         int height = 0;
         bool found = false;
-
+	
+	if(temp != 0){
         while (height <= iheight) {
             if (item < temp->data) {  // iterate through LHS
 
                 temp = temp->left;
                 height++;
-                if (temp != nullptr) {
-                    if (temp->data == item) {
+                if(temp != nullptr) {
+                    if(temp->data == item) {
                         found = true;
                         return BSTIterator<Data>(temp);
                     }
@@ -132,16 +133,15 @@ class BST {
                     }
                 }
             } else {  // check if equal to root
-                if (temp->data == item) {
                     found = true;
                     return BSTIterator<Data>(temp);
-                }
             }
         }
 
         if (found == false) {
             return BSTIterator<Data>(nullptr);
         }
+	}
     }
 
     /*
