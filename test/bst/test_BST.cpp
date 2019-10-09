@@ -80,6 +80,15 @@ class SmallBSTFixture : public ::testing::Test {
 TEST_F(SmallBSTFixture, SMALL_SIZE_TEST) {
     // assert that the small BST has the correct size
     ASSERT_EQ(bst.size(), 5);
+    bst.insert(120);
+    ASSERT_EQ(bst.size(),6);
+}
+
+TEST_F(SmallBSTFixture, SMALL_HEIGHT_TEST){
+
+	ASSERT_EQ(bst.height(), 2);
+	bst.insert(-100);
+	ASSERT_EQ(bst.height(),3);
 }
 
 TEST_F(SmallBSTFixture, SMALL_INSERT_DUPLICATES_TEST) {
@@ -106,6 +115,11 @@ TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSAL_TEST) {
     ASSERT_EQ(bst.inorder(), list);
 }
 
+TEST_F(SmallBSTFixture, EMPTY_TEST){
+
+	BST<int> binST;
+	ASSERT_TRUE(binST.empty());
+}
 TEST_F(SmallBSTFixture, IN_ORDER_TRAVERSAL_BIG_TEST) {
     vector<int> list{-2, 4, 5, 6, 100, 200, 205, 300};
     ASSERT_EQ(bst1.inorder(), list);

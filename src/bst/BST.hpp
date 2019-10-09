@@ -254,17 +254,12 @@ class BST {
 
         if (n == nullptr) {
             return;
-        } else {
-            if (n->left != 0) {
-                n = n->left;
-                deleteAll(n);
-            } else if (n->right != 0) {
-                n = n->right;
-                deleteAll(n);
-            } else {
-                delete n;
-            }
         }
+       
+	deleteAll(n->left);
+	deleteAll(n->right);
+	delete n;
+
     }
 };
 
