@@ -262,13 +262,12 @@ class BST {
 			   delete current node
 			   */
 
-			if (n == nullptr) {
-				return;
+			if (n != nullptr) {
+			
+				deleteAll(n->left);
+				deleteAll(n->right);
+				delete n;
 			}
-
-			deleteAll(n->left);
-			deleteAll(n->right);
-			delete n;
 
 		}
 };
