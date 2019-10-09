@@ -127,7 +127,7 @@ class BST {
 							}
 						}
 
-							height++;
+						height++;
 					} else if (temp->data < item) {  // iterate through RHS
 
 						if(temp->right != 0){
@@ -140,7 +140,7 @@ class BST {
 								}
 							}
 						}
-							height++;
+						height++;
 					} else {  // check if equal to root
 						found = true;
 						return BSTIterator<Data>(temp);
@@ -262,12 +262,12 @@ class BST {
 			   delete current node
 			   */
 
-			if (n != nullptr) {
-			
-				deleteAll(n->left);
-				deleteAll(n->right);
-				delete n;
+			if (n == nullptr) {
+				return;
 			}
+			deleteAll(n->left);
+			deleteAll(n->right);
+			delete n;
 
 		}
 };
