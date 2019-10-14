@@ -1,3 +1,10 @@
+/*
+ * Author: Kimiya Ataiyan 
+ * UserID: kataiyan 
+ * Date: 10/12/19
+ * Filename: KDT.hpp
+ */
+
 #ifndef KDT_HPP
 #define KDT_HPP
 
@@ -53,8 +60,19 @@ class KDT {
           iheight(-1) {}
 
     /** Destructor of KD tree */
-    virtual ~KDT() { deleteAll(root); }
+    virtual ~KDT() { 
+	    
+	    deleteAll(root); 
+    }
 
+
+    /*
+     * Function name: build 
+     * Function Prototype: void build(vector<Point>& points)
+     * Description: calls the helper function buildSubtree, in order
+     * 			to recursively build KDT, and sets member variable root
+     * 	Return: none
+     */
     void build(vector<Point>& points) {
     	
 	//if vector is empty, return directly
@@ -65,12 +83,12 @@ class KDT {
 	this->numDim = points[0].numDim;
 	int height = iheight;
 	this->isize = points.size();
-	int dim = this->numDim;
 
 
-	root = buildSubtree(points, 0, points.size(), dim, height);
+	root = buildSubtree(points, 0, points.size(), 0 , height);
 
     }
+	
 
     /*
      * Function name: findNearestNeighbor
@@ -91,7 +109,7 @@ class KDT {
 
    	findNNHelper(root, queryPoint, curDim);
    
-	return nullptr; //WHAT GETS RETURNED HERE????????????????????
+	return &nearestNeighbor;
    
     }
 
@@ -100,11 +118,24 @@ class KDT {
         return {};
     }
 
+    /* 
+     * Function name: size
+     * Function Prototype: unsigned int size() const 
+     * Description: returns the size (number of nodes) of KDT
+     * Return: unsigned int
+     */
+
     unsigned int size() const { 
     
     	return isize;
     }
 
+    /*
+     * Function name: height
+     * Function Prototype: int height() const
+     * Description: returns the height of the KDT 
+     * Return: int 
+     */
     int height() const {
    
    	return iheight;
@@ -112,40 +143,64 @@ class KDT {
 
   private:
 
+    /* 
+     * Function Name: buildSubtree
+     * Function Prototype: KDNode * buildSubtree(vector<Point> & points, unsigned int start, unsigned int end,
+     * 				unsigned int curDim, int height)
+     * 	Description: Helper method that recurively uilds the kdt tree in which each level compares a different dimensio
+     * 				n of the Point in order
+     * 				to determine left and right subtrees. Height of the tree gets set in this function too
+     * 	Return: KDNode* which will is a pointer to KDNode object containing Point,left and right
+     */
+
     KDNode* buildSubtree(vector<Point>& points, unsigned int start,
                          unsigned int end, unsigned int curDim, int height) {
 
-	    	if( start < end){
+
+	   	 if( start < end){
 			
 			//sort the vector comparing curDim values
-			sort(points.begin(), points.end()-1 , CompareValueAt(curDim));
+			sort(points.begin()+start, points.begin() + end, CompareValueAt(curDim));
 
 	    		//find median
-    			int median = ((end-start)/2) + start;
+    			int median = floor((start + end) /2);
 		
 			//check if dimension valid, otherwise reset dimension
-			if(curDim > numDim){
+			if(!(curDim < numDim)){
 				curDim = 0;
 			}	
-			
+			else{
+				curDim++;
+			}
+
 			KDNode * curr = new KDNode(points[median]);
 			height++;
-			curr->left = buildSubtree(points, 0, median, curDim++, height);
-			curr->right = buildSubtree(points, median+1, points.size(),curDim++, height);
+			curr->left = buildSubtree(points, start, median, curDim, height);
+			curr->right = buildSubtree(points, median+1, end ,curDim, height);
 			
 			//set iheight
 			if( height > iheight ){
 				
 				iheight = height;
-			}	
+			}
+
+
+			return curr;
 	  	}
 		else{
-			return new KDNode(points[start]);  
+//			return new KDNode(points[start]);  
+			return nullptr;
 		}
 
     }	
 
-    /** TODO */
+    /*
+     * Function name: findNNHelper
+     * Function Prototype: void findNNHelper(KDNode* node, Point& queryPoint, unsgined int curDim)
+     * Description:  Helper function that gets called in findNearestNeighbor in order to find 
+     * 			the point with the closests distance in the kdt to queryPoint
+     * Return: none
+     */
     void findNNHelper(KDNode* node, Point& queryPoint, unsigned int curDim) {
     
     	//compare query point do corresponding dimension to guide left or right
@@ -164,7 +219,6 @@ class KDT {
 			curDim++;
 			
 			findNNHelper(temp, queryPoint, curDim);
-
 
 
 
@@ -226,10 +280,29 @@ class KDT {
     /** Extra credit */
     void rangeSearchHelper(KDNode* node, vector<pair<double, double>>& curBB,
                            vector<pair<double, double>>& queryRegion,
-                           unsigned int curDim) {}
+       
+       
 
-    /** TODO */
-    static void deleteAll(KDNode* n) {}
+			   unsigned int curDim) {}
+
+    /*
+     * Function name: deleteAll
+     * Function Prototype: static vpid deleteAll(KDNode* n)
+     * Description: deletes all the nodes in the KDT
+     * Return: none
+     */
+    static void deleteAll(KDNode* n) {
+    
+    	if(n == nullptr){
+		return;
+	}
+
+	deleteAll(n->left);
+	deleteAll(n->right);
+	delete n;
+    
+    
+    }
 
     // Add your own helper methods here
 };
