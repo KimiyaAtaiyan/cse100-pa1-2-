@@ -188,7 +188,6 @@ class KDT {
 			return curr;
 	  	}
 		else{
-//			return new KDNode(points[start]);  
 			return nullptr;
 		}
 
@@ -210,18 +209,18 @@ class KDT {
 		curDim = 0;
 	}
 
-	if(temp != 0){
+	if(temp != nullptr){
 
 		//Go left if query-value at current dimension is less than node-value
 		if( queryPoint.valueAt(curDim) < temp->point.valueAt(curDim)){
-
+			
 			temp = temp->left;
 			curDim++;
 			
 			findNNHelper(temp, queryPoint, curDim);
 
 
-
+			if(temp != nullptr){
 			//compare treshhold to parent[dimension], if (curr.dim - query.dim)^2 < treshhold go right
 			if(pow(temp->point.valueAt(curDim)- queryPoint.valueAt(curDim),2) < threshold){
 
@@ -229,6 +228,7 @@ class KDT {
 				findNNHelper(temp, queryPoint,curDim);
 
 			}	
+			}
 
 		}
 		else if( queryPoint.valueAt(curDim) > temp->point.valueAt(curDim)){
@@ -237,11 +237,12 @@ class KDT {
 			curDim++;
 			findNNHelper(temp, queryPoint, curDim);
 
-
+			if(temp != nullptr){
 			if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim),2) < threshold){
 
 				temp = temp->left;
 				findNNHelper(temp, queryPoint, curDim);
+			}
 			}
 
 		}
@@ -251,11 +252,13 @@ class KDT {
 			curDim++;
 
 			findNNHelper(temp, queryPoint, curDim);
-
+			
+			if(temp != nullptr){
 			if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim),2) < threshold){
 
 				temp = temp->left;
 				findNNHelper(temp, queryPoint, curDim);
+			}
 			}
 		}
 

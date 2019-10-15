@@ -23,6 +23,8 @@ class SmallKDTFixture : public ::testing::Test {
   protected:
     vector<Point> vec;
     KDT kdt;
+    KDT kdt1;
+    vector<Point> vec1;
 
   public:
     SmallKDTFixture() {
@@ -32,6 +34,13 @@ class SmallKDTFixture : public ::testing::Test {
         vec.emplace_back(Point({1.8, 1.9}));
         vec.emplace_back(Point({4.4, 2.2}));
         kdt.build(vec);
+
+
+
+	vec1.emplace_back(Point({1,2,3}));
+	vec1.emplace_back(Point({4,5,6}));
+	vec1.emplace_back(Point({7,8,9}));
+	kdt1.build(vec1);
     }
 };
 
@@ -40,10 +49,15 @@ TEST_F(SmallKDTFixture, TEST_SIZE) {
     ASSERT_EQ(kdt.size(), 5);
 }
 
-/*TEST_F(SmallKDTFixture, TEST_NEAREST_POINT) {
+TEST_F(SmallKDTFixture, TEST_TWO_SIZE){
+
+	ASSERT_EQ(kdt1.size(),3);
+	ASSERT_EQ(kdt1.height(), 1);
+}
+TEST_F(SmallKDTFixture, TEST_NEAREST_POINT) {
     NaiveSearch naiveSearch;
     naiveSearch.build(vec);
     Point queryPoint({5.81, 3.21});
     Point* closestPoint = naiveSearch.findNearestNeighbor(queryPoint);
     ASSERT_EQ(*kdt.findNearestNeighbor(queryPoint), *closestPoint);
-}*/
+}
