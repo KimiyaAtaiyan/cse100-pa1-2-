@@ -22,9 +22,9 @@ class BSTNode {
     Data const data;  // the const Data in this node.
 
     BSTNode(const Data& d) : data(d) {
-        left = 0;
-        right = 0;
-        parent = 0;
+        left = nullptr;
+        right = nullptr;
+        parent = nullptr;
     }
 
     /*
@@ -41,11 +41,11 @@ class BSTNode {
         if (this == nullptr) {
             return nullptr;
         }
-        if (right != 0) {
+        if (right != nullptr) {
             BSTNode<Data>* temp = right;
 
             // move until most left node of right tree
-            while (temp->left != 0) {
+            while (temp->left != nullptr) {
                 temp = temp->left;
             }
 
@@ -58,7 +58,7 @@ class BSTNode {
 
             BSTNode<Data>* temp = this;
 
-            while (temp->parent != 0) {
+            while (temp->parent != nullptr) {
                 temp = temp->parent;
 
                 if (data < temp->data) {

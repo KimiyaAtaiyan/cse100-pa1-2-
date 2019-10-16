@@ -107,10 +107,11 @@ class KDT {
 
 			int curDim = 0;
 
-			threshold =numeric_limits<double>::max();
+
 
 			findNNHelper(root, queryPoint, curDim);
 
+			threshold =numeric_limits<double>::max();
 
 			return &nearestNeighbor;
 

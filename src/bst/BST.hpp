@@ -54,7 +54,7 @@ class BST {
 				while (height <= iheight) {
 					// iterate through LHS
 					if (item < temp->data) {
-						if (temp->left == 0) {
+						if (temp->left == nullptr) {
 							temp->left = new BSTNode<Data>(item);
 							temp->left->parent = temp;
 							isize++;
@@ -67,7 +67,7 @@ class BST {
 						}
 					} else if (temp->data < item) {  // iterate through RHS
 
-						if (temp->right == 0) {
+						if (temp->right == nullptr) {
 							temp->right = new BSTNode<Data>(item);
 							temp->right->parent = temp;
 							isize++;
@@ -111,18 +111,18 @@ class BST {
 			bool found = false;
 
 
-			if(temp != 0){
+			if(temp != nullptr){
 				while (height <= iheight) {
 
 					if (item < temp->data) {  // iterate through LHS
 
-						if(temp != 0){
+						if(temp != nullptr){
 							temp = temp->left;
 
-							if(temp != 0) {
+							if(temp != nullptr) {
 								if(temp->data == item) {
 									found = true;
-									return BSTIterator<Data>(temp);
+									return iterator(temp);
 								}
 							}
 						}
@@ -130,13 +130,13 @@ class BST {
 						height++;
 					} else if (temp->data < item) {  // iterate through RHS
 
-						if(temp->right != 0){
+						if(temp->right != nullptr){
 							temp = temp->right;
 
-							if (temp != 0) {
+							if (temp != nullptr) {
 								if (temp->data == item) {
 									found = true;
-									return BSTIterator<Data>(temp);
+									return iterator(temp);
 								}
 							}
 						}
@@ -148,9 +148,12 @@ class BST {
 				}
 
 				if (found == false) {
-					return BSTIterator<Data>(nullptr);
+					return iterator(nullptr);
 				}
 
+			}
+			else{
+				return iterator(temp);
 			}
 		}
 
@@ -213,13 +216,13 @@ class BST {
 				return list;
 			}
 
-			if (node->left != 0) {
+			if (node->left != nullptr) {
 				list = inorderHelper(node->left, list);
 			}
 
 			list.push_back(node->data);
 
-			if (node->right != 0) {
+			if (node->right != nullptr) {
 				list = inorderHelper(node->right, list);
 			}
 
@@ -237,11 +240,11 @@ class BST {
 		static BSTNode<Data>* first(BSTNode<Data>* root) {
 			BSTNode<Data>* temp = root;
 
-			if (root == 0) {
+			if (root == nullptr) {
 				return nullptr;
 			}
 
-			while (temp->left != 0) {
+			while (temp->left != nullptr) {
 				temp = temp->left;
 			}
 
