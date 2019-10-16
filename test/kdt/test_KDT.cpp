@@ -25,6 +25,8 @@ class SmallKDTFixture : public ::testing::Test {
     KDT kdt;
     KDT kdt1;
     vector<Point> vec1;
+    KDT kdt2;
+    vector<Point> vec2;
 
   public:
     SmallKDTFixture() {
@@ -40,7 +42,11 @@ class SmallKDTFixture : public ::testing::Test {
 	vec1.emplace_back(Point({1,2,3}));
 	vec1.emplace_back(Point({4,5,6}));
 	vec1.emplace_back(Point({7,8,9}));
+	vec1.emplace_back(Point({10,11,12}));
 	kdt1.build(vec1);
+
+	vec2.emplace_back(Point({0,0}));
+	kdt2.build(vec2);
     }
 };
 
@@ -51,8 +57,8 @@ TEST_F(SmallKDTFixture, TEST_SIZE) {
 
 TEST_F(SmallKDTFixture, TEST_TWO_SIZE){
 
-	ASSERT_EQ(kdt1.size(),3);
-	ASSERT_EQ(kdt1.height(), 1);
+	ASSERT_EQ(kdt1.size(),4);
+	ASSERT_EQ(kdt1.height(), 2);
 }
 TEST_F(SmallKDTFixture, TEST_NEAREST_POINT) {
     NaiveSearch naiveSearch;
@@ -66,7 +72,16 @@ TEST_F(SmallKDTFixture, TEST_NEAREST_TWO_POINT){
 
 	NaiveSearch naiveSearch;
 	naiveSearch.build(vec1);
-	Point queryPoint({0.0,0.0,0.0});
+	Point queryPoint({7,8,9});
 	Point * closestPoint  = naiveSearch.findNearestNeighbor(queryPoint);
 	ASSERT_EQ(*kdt1.findNearestNeighbor(queryPoint), *closestPoint);
 }
+
+TEST_F(SmallKDTFixture, TEST_EMPTY_NEAREST_POINT){
+	NaiveSearch naiveSearch;
+	naiveSearch.build(vec2);
+	Point queryPoint({1,2});
+	Point * closestPoint = naiveSearch.findNearestNeighbor(queryPoint);
+	ASSERT_EQ(*kdt2.findNearestNeighbor(queryPoint), *closestPoint);
+}
+

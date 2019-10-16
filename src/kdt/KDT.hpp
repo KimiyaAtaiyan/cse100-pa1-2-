@@ -216,9 +216,10 @@ class KDT {
 				curDim = ((curDim + 1)%numDim);
 				findNNHelper(node->right, queryPoint, curDim);
 
+				int parentDim = curDim -1;
 
 				//check to see if other side needs to be traversed
-				if( pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
+				if( pow(node->point.valueAt(parentDim) - queryPoint.valueAt(parentDim), 2) < threshold){
 
 					findNNHelper(node->left, queryPoint, curDim);
 				}
@@ -228,9 +229,9 @@ class KDT {
 				curDim = ((curDim + 1)%numDim);
 				findNNHelper(node->left, queryPoint, curDim);
 
-
+				int parentDim = curDim - 1;
 				//check to see if other side needs to be traversed
-				if(pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
+				if(pow(node->point.valueAt(parentDim) - queryPoint.valueAt(parentDim), 2) < threshold){
 
 					findNNHelper(node->right, queryPoint,curDim);
 				}
@@ -239,6 +240,7 @@ class KDT {
 			//compute distance to queryPoint and set NearestNeighbor
 
 			node->point.setDistToQuery(queryPoint);
+
 			if( node->point.distToQuery < threshold){
 				threshold = node->point.distToQuery;
 				nearestNeighbor= node->point;

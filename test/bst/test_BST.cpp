@@ -56,6 +56,7 @@ class SmallBSTFixture : public ::testing::Test {
     BST<int> bst2;
     BST<int> bst3;
     BST<int> bst4;
+    BST<int> bst5;
 
   public:
     SmallBSTFixture() {
@@ -71,6 +72,7 @@ class SmallBSTFixture : public ::testing::Test {
 
 	vector<int>input4{};
 	insertIntoBST(input4, bst4);
+
 
     }
     // code in SetUp() will execute just before the test ensues
@@ -159,3 +161,12 @@ TEST_F(SmallBSTFixture, FIND_NODE_NULL_TEST){
 	ASSERT_TRUE( iter1== nullptr);
 }
 
+TEST_F(SmallBSTFixture, INSERT_AND_FIND_TEST){
+
+	ASSERT_TRUE(bst.insert(98));
+	ASSERT_TRUE(bst.insert(99));
+
+	BSTNode<int>node(98);
+	BSTIterator<int> iter1 = bst.find(98);
+	ASSERT_EQ(*(bst.find(node.data)), 98);
+}
