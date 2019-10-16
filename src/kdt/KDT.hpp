@@ -169,14 +169,7 @@ class KDT {
 				int median = floor((start + end) /2);
 
 				//check if dimension valid, otherwise reset dimension
-
 				curDim = ((curDim+1)%numDim);
-				/*if(!(curDim < numDim)){
-					curDim = 0;
-				}	
-				else{
-					curDim++;
-				}*/
 
 				KDNode * curr = new KDNode(points[median]);
 				height++;
@@ -188,7 +181,6 @@ class KDT {
 
 					iheight = height;
 				}
-
 
 				return curr;
 			}
@@ -217,11 +209,12 @@ class KDT {
 			}
 
 
-
+			//traverse through tree, comparing values to queryPoint
 			if( queryPoint.valueAt(curDim) >= node->point.valueAt(curDim)){
 
-				findNNHelper(node->right, queryPoint, curDim);
 				curDim = ((curDim + 1)%numDim);
+				findNNHelper(node->right, queryPoint, curDim);
+
 
 				//check to see if other side needs to be traversed
 				if( pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
@@ -231,8 +224,9 @@ class KDT {
 			}
 			else{
 
-				findNNHelper(node->left, queryPoint, curDim);
 				curDim = ((curDim + 1)%numDim);
+				findNNHelper(node->left, queryPoint, curDim);
+
 
 				//check to see if other side needs to be traversed
 				if(pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
