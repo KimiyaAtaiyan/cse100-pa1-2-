@@ -206,10 +206,7 @@ class KDT {
 			//compare query point do corresponding dimension to guide left or right
 			KDNode* temp = node;
 
-			if(curDim > numDim){
-				curDim = 0;
-			}
-
+			curDim = ((curDim + 1)%numDim);
 			if(temp != nullptr){
 
 				//Go left if query-value at current dimension is less than node-value
