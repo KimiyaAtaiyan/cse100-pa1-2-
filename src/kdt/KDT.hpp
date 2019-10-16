@@ -232,21 +232,6 @@ class KDT {
 					}
 
 				}
-				else if( queryPoint.valueAt(curDim) > temp->point.valueAt(curDim)){
-
-					temp = temp->right;
-					curDim++;
-					findNNHelper(temp, queryPoint, curDim);
-
-					if(temp != nullptr){
-						if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim),2) < threshold){
-
-							temp = temp->left;
-							findNNHelper(temp, queryPoint, curDim);
-						}
-					}
-
-				}
 				else{ //if equal, always go right
 
 					temp = temp->right;
@@ -270,8 +255,7 @@ class KDT {
 				if( threshold > node->point.distToQuery){
 
 					nearestNeighbor = node->point;
-					nearestNeighbor.setDistToQuery(queryPoint);
-					threshold = nearestNeighbor.distToQuery;
+					threshold = node->point.distToQuery;
 				}
 
 			}
