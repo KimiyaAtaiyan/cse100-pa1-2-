@@ -207,16 +207,19 @@ class KDT {
 
 			//compare query point do corresponding dimension to guide left or right
 
-			curDim = ((curDim + 1)%numDim);
+
 
 			//base case
 			if(node == nullptr){
 				return;
 			}
 
+
+
 			if( queryPoint.valueAt(curDim) >= node->point.valueAt(curDim)){
 
 				findNNHelper(node->right, queryPoint, curDim);
+				curDim = ((curDim + 1)%numDim);
 
 				//check to see if other side needs to be traversed
 				if( pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
@@ -227,6 +230,7 @@ class KDT {
 			else{
 
 				findNNHelper(node->left, queryPoint, curDim);
+				curDim = ((curDim + 1)%numDim);
 
 				//check to see if other side needs to be traversed
 				if(pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
