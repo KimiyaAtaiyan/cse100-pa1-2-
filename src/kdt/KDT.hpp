@@ -107,9 +107,11 @@ class KDT {
 
 			int curDim = 0;
 
+			threshold =numeric_limits<double>::max();
+
 			findNNHelper(root, queryPoint, curDim);
 
-			threshold =numeric_limits<double>::max();
+
 			return &nearestNeighbor;
 
 		}
@@ -223,6 +225,7 @@ class KDT {
 						if(pow(temp->point.valueAt(curDim)- queryPoint.valueAt(curDim),2) < threshold){
 
 							temp = temp->right;
+							curDim++;
 							findNNHelper(temp, queryPoint,curDim);
 
 						}	
@@ -240,6 +243,7 @@ class KDT {
 						if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim),2) < threshold){
 
 							temp = temp->left;
+							curDim++;
 							findNNHelper(temp, queryPoint, curDim);
 						}
 					}
