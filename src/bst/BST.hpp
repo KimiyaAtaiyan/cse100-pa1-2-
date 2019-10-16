@@ -47,44 +47,53 @@ class BST {
 		virtual bool insert(const Data& item) {
 			// start at root node and iterate through RHS or LHS of tree
 
-			if (root != 0) {
+			if (root != nullptr) {
 				BSTNode<Data>* temp = root;
 				int height = 0;
 
+
+
 				while (height <= iheight) {
-					// iterate through LHS
-					if (item < temp->data) {
-						if (temp->left == nullptr) {
-							temp->left = new BSTNode<Data>(item);
-							temp->left->parent = temp;
-							isize++;
-							if (height == iheight) {
-								iheight++;
+
+					if( temp!= nullptr){
+						// iterate through LHS
+						if (item < temp->data) {
+							if (temp->left == nullptr) {
+								temp->left = new BSTNode<Data>(item);
+								temp->left->parent = temp;
+								isize++;
+								if (height == iheight) {
+									iheight++;
+								}
+								return true;
+							} 
+							else {
+								temp = temp->left;
 							}
-							return true;
-						} else {
-							temp = temp->left;
 						}
-					} else if (temp->data < item) {  // iterate through RHS
+						else if (temp->data < item) {  // iterate through RHS
 
-						if (temp->right == nullptr) {
-							temp->right = new BSTNode<Data>(item);
-							temp->right->parent = temp;
-							isize++;
+							if (temp->right == nullptr) {
+								temp->right = new BSTNode<Data>(item);
+								temp->right->parent = temp;
+								isize++;
 
-							// if new row started, increment height
-							if (height == iheight) {
-								iheight++;
+								// if new row started, increment height
+								if (height == iheight) {
+									iheight++;
+								}
+								return true;
+							} 
+							else {
+								temp = temp->right;
 							}
-							return true;
-						} else {
-							temp = temp->right;
-						}
-					} else {  // if duplicate then return false
+						} 
+						else {  // if duplicate then return false
 
-						return false;
+							return false;
+						}
+						height++;
 					}
-					height++;
 				}
 			} else {  // seit height to 0 if its first elemtn to be inserted
 
