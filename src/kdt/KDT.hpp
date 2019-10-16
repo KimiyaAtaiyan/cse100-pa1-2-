@@ -169,12 +169,14 @@ class KDT {
 				int median = floor((start + end) /2);
 
 				//check if dimension valid, otherwise reset dimension
-				if(!(curDim < numDim)){
+
+				curDim = ((curDim+1)%numDim);
+				/*if(!(curDim < numDim)){
 					curDim = 0;
 				}	
 				else{
 					curDim++;
-				}
+				}*/
 
 				KDNode * curr = new KDNode(points[median]);
 				height++;
