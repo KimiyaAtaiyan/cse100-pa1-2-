@@ -232,7 +232,7 @@ class KDT {
 				//check to see if other side needs to be traversed
 				if(pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
 
-					findNNHelper(node->left, queryPoint,curDim);
+					findNNHelper(node->right, queryPoint,curDim);
 				}
 			}
 
