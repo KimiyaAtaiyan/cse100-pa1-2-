@@ -206,100 +206,44 @@ class KDT {
 		void findNNHelper(KDNode* node, Point& queryPoint, unsigned int curDim) {
 
 			//compare query point do corresponding dimension to guide left or right
-			KDNode* temp = node;
 
 			curDim = ((curDim + 1)%numDim);
 
 			//base case
-			if(temp == nullptr){
+			if(node == nullptr){
 				return;
 			}
 
-			if( queryPoint.valueAt(curDim) < temp->point.valueAt(curDim)){
+			if( queryPoint.valueAt(curDim) >= node->point.valueAt(curDim)){
 
-				findNNHelper(temp->left, queryPoint, curDim);
+				findNNHelper(node->right, queryPoint, curDim);
 
 				//check to see if other side needs to be traversed
-				if( pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
+				if( pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
 
-					findNNHelper(temp->right, queryPoint, curDim);
+					findNNHelper(node->left, queryPoint, curDim);
 				}
 			}
 			else{
 
-				findNNHelper(temp->right, queryPoint, curDim);
+				findNNHelper(node->left, queryPoint, curDim);
 
 				//check to see if other side needs to be traversed
-				if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
+				if(pow(node->point.valueAt(curDim) - queryPoint.valueAt(curDim), 2) < threshold){
 
-					findNNHelper(temp->left, queryPoint,curDim);
+					findNNHelper(node->left, queryPoint,curDim);
 				}
 			}
 
 			//compute distance to queryPoint and set NearestNeighbor
 
-			temp->point.setDistToQuery(queryPoint);
-			if( temp->point.distToQuery < threshold){
-				threshold = temp->point.distToQuery;
-				nearestNeighbor= temp->point;
+			node->point.setDistToQuery(queryPoint);
+			if( node->point.distToQuery < threshold){
+				threshold = node->point.distToQuery;
+				nearestNeighbor= node->point;
 			}
-
-			/*
-			if(temp != nullptr){
-
-				//Go left if query-value at current dimension is less than node-value
-				if( queryPoint.valueAt(curDim) < temp->point.valueAt(curDim)){
-
-					temp = temp->left;
-					curDim++;
-
-					findNNHelper(temp, queryPoint, curDim);
-
-
-					if(temp != nullptr){
-						//compare treshhold to parent[dimension], if (curr.dim - query.dim)^2 < treshhold go right
-						if(pow(temp->point.valueAt(curDim)- queryPoint.valueAt(curDim),2) < threshold){
-
-							temp = temp->right;
-							findNNHelper(temp, queryPoint,curDim);
-
-						}	
-					}
-
-				}
-				else{ //if equal, always go right
-
-					temp = temp->right;
-
-					findNNHelper(temp, queryPoint, curDim);
-
-					if(temp != nullptr){
-						if(pow(temp->point.valueAt(curDim) - queryPoint.valueAt(curDim),2) < threshold){
-
-							temp = temp->left;
-							curDim++;
-							findNNHelper(temp, queryPoint, curDim);
-						}
-					}
-				}
-
-				//calculate treshhold
-
-				node->point.setDistToQuery(queryPoint); 	//distance to current point
-
-				if( threshold > node->point.distToQuery){
-
-					nearestNeighbor = node->point;
-					threshold = node->point.distToQuery;
-				}
-
-			}
-			else{
-				return;
-			}*/
 
 		}
-
 		/** Extra credit */
 		void rangeSearchHelper(KDNode* node, vector<pair<double, double>>& curBB,
 				vector<pair<double, double>>& queryRegion,
